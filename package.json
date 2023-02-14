@@ -1,0 +1,66 @@
+{
+  "name": "heti",
+  "url": "https://github.com/Zacharia2/tw5-heti-plugin",
+  "description": "赫蹏是专为中文内容展示设计的排版样式增强。它基于通行的中文排版规范而来，可以为网站的读者带来更好的文章阅读体验。",
+  "license": "MIT",
+  "version": "0.0.4",
+
+  "scripts": {
+    "reset": "rimraf ./**/node_modules",
+    "clean": "rimraf dist",
+    "prepare": "husky install",
+    "update": "npm-check-updates -u",
+    "new": "tiddlywiki-plugin-dev new",
+    "dev": "tiddlywiki-plugin-dev dev",
+    "build": "npm run clean && tiddlywiki-plugin-dev build",
+    "build:library": "npm run clean && tiddlywiki-plugin-dev build --library --output dist/library",
+    "publish": "npm run clean && tiddlywiki-plugin-dev publish",
+    "publish:offline": "npm run clean && tiddlywiki-plugin-dev publish --offline",
+
+    "build-heti": "npm run build:style && npm run build:script",
+    "build:style": "sass --no-source-map --style=compressed src-heti/lib/heti.scss:src/heti/heti.min.css",
+    "build:script": "rollup -c"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "node --max_old_space_size=8192 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet"
+    ],
+    "*.{js,jsx,mjs,mjsx,cjs,cjsx}": [
+      "node --max_old_space_size=8192 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet"
+    ]
+  },
+  "devDependencies": {
+    "@modern-js/eslint-config": "^2.1.0",
+    "@modern-js/tsconfig": "^2.1.0",
+    "@types/node": "^18.11.18",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
+    "rimraf": "^4.0.7",
+    "ts-node": "^10.9.1",
+    "tw5-typed": "^0.2.25",
+    "typescript": "^4.9.4",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "rollup": "^1.32.1",
+    "rollup-plugin-terser": "^5.3.1",
+    "sass": "^1.57.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-recommended-scss": "^4.3.0",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-scss": "^3.21.0"
+  },
+  "dependencies": {
+    "npm-check-updates": "^16.6.2",
+    "tiddlywiki": "^5.2.5",
+    "tiddlywiki-plugin-dev": "^0.0.34",
+    "heti-findandreplacedomtext": "^0.5.0"
+  }
+}
